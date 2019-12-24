@@ -16,17 +16,22 @@ const init = createResource();
 
 function App() {
   const [resource, setResource] = useState(init);
-  const deferredResource = useDeferredValue(resource, { timeoutMs: 5000 });
-
+  const deferredResource = useDeferredValue(resource, { timeoutMs: 2000 });
   const isStale = deferredResource !== resource;
+
+  const [resource2, setResource2] = useState(init);
 
   const refresh = () => {
     setResource(createResource());
   };
 
+  const refresh2 = () => {
+    setResource2(createResource());
+  };
+
   return (
     <div className="App">
-      <Suspense fallback={<Spinner animation="grow" />}>
+      <Suspense fallback={<Spinner animation="border" />}>
         <div style={{ color: isStale ? "pink" : "black" }}>
           <Num resource={deferredResource} />
         </div>
@@ -36,11 +41,11 @@ function App() {
       </div>
       <Suspense fallback={<Spinner animation="grow" />}>
         <div style={{ color: isStale ? "pink" : "black" }}>
-          <Num resource={resource} />
+          <Num resource={resource2} />
         </div>
       </Suspense>
       <div>
-        <Button onClick={refresh}>Refresh </Button>
+        <Button onClick={refresh2}>Refresh </Button>
       </div>
     </div>
   );
