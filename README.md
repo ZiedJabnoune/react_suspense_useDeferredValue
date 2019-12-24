@@ -1,2 +1,0 @@
-# react_suspense_useDeferredValue
-Created with CodeSandbox
