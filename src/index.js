@@ -13,13 +13,14 @@ const Num = ({ resource }) => {
 };
 
 const init = createResource();
+const init2 = createResource();
 
 function App() {
   const [resource, setResource] = useState(init);
   const deferredResource = useDeferredValue(resource, { timeoutMs: 2500 });
   const isStale = deferredResource !== resource;
 
-  const [resource2, setResource2] = useState(init);
+  const [resource2, setResource2] = useState(init2);
 
   const refresh = () => {
     setResource(createResource());
