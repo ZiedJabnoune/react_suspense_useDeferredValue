@@ -16,7 +16,7 @@ const init = createResource();
 
 function App() {
   const [resource, setResource] = useState(init);
-  const deferredResource = useDeferredValue(resource, { timeoutMs: 2000 });
+  const deferredResource = useDeferredValue(resource, { timeoutMs: 2500 });
   const isStale = deferredResource !== resource;
 
   const [resource2, setResource2] = useState(init);
@@ -31,21 +31,29 @@ function App() {
 
   return (
     <div className="App">
-      <Suspense fallback={<Spinner animation="border" />}>
-        <div style={{ color: isStale ? "pink" : "black" }}>
-          <Num resource={deferredResource} />
+      <div id="test" style={{ border: "1px solid", margin: "10px" }}>
+        <Suspense fallback={<Spinner animation="border" />}>
+          <div style={{ color: isStale ? "pink" : "black" }}>
+            <Num resource={deferredResource} />
+          </div>
+        </Suspense>
+        <div>
+          <Button style={{ margin: "10px" }} onClick={refresh}>
+            Refresh (useDeferredValue)
+          </Button>
         </div>
-      </Suspense>
-      <div>
-        <Button onClick={refresh}>Refresh (useDeferredValue)</Button>
       </div>
-      <Suspense fallback={<Spinner animation="grow" />}>
-        <div style={{ color: isStale ? "pink" : "black" }}>
-          <Num resource={resource2} />
+      <div style={{ border: "1px solid", margin: "10px" }}>
+        <Suspense fallback={<Spinner animation="grow" />}>
+          <div>
+            <Num resource={resource2} />
+          </div>
+        </Suspense>
+        <div>
+          <Button style={{ margin: "10px" }} onClick={refresh2}>
+            Refresh
+          </Button>
         </div>
-      </Suspense>
-      <div>
-        <Button onClick={refresh2}>Refresh </Button>
       </div>
     </div>
   );
